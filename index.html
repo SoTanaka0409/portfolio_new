@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ポートフォリオ | ゲームプログラマー志望</title>
+<style>
+  :root {
+    --bg-color: #121212;
+    --section-bg: #1e1e1e;
+    --text-main: #e0e0e0;
+    --text-muted: #a0a0a0;
+    --accent: #64ffda; /* プログラマーらしいスタイリッシュなシアン */
+    --btn-bg: #333333;
+    --btn-border: #555555;
+    --btn-hover-bg: #64ffda;
+    --btn-hover-text: #121212;
+  }
+
+  /* スムーズスクロールと、固定ナビゲーションの高さ分のズレ調整 */
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 80px; 
+  }
+
+  body {
+    font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+  }
+
+  /* 固定ナビゲーションメニュー */
+  nav {
+    position: sticky;
+    top: 0;
+    background-color: rgba(30, 30, 30, 0.95);
+    padding: 15px 0;
+    z-index: 1000;
+    border-bottom: 1px solid #333;
+    backdrop-filter: blur(5px);
+  }
+
+  nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 30px;
+  }
+
+  nav a {
+    color: var(--text-main);
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: color 0.3s;
+  }
+
+  nav a:hover {
+    color: var(--accent);
+  }
+
+  .container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 50px 20px;
+  }
+
+  h1, h2, h3 {
+    color: var(--accent);
+    margin-top: 0;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+  }
+
+  /* 挨拶・簡易自己紹介ボックス */
+  .greeting-box {
+    background-color: var(--section-bg);
+    border-left: 5px solid var(--accent);
+    border-radius: 8px;
+    padding: 30px;
+    margin-bottom: 60px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  }
+
+  .greeting-box p {
+    margin: 0 0 15px 0;
+  }
+  .greeting-box p:last-child {
+    margin-bottom: 0;
+  }
+
+  /* セクション間の余白を十分にとる */
+  section {
+    background-color: var(--section-bg);
+    border-radius: 12px;
+    padding: 50px;
+    margin-bottom: 100px; 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+    border-bottom: 2px solid #333;
+    padding-bottom: 15px;
+    margin-bottom: 30px;
+  }
+
+  /* 動画コンテナ（16:9の比率を維持） */
+  .video-wrapper {
+    position: relative;
+    width: 100%;
+    background-color: #000;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 30px;
+    border: 1px solid #333;
+  }
+
+  .video-wrapper::before {
+    content: "";
+    display: block;
+    padding-top: 56.25%;
+  }
+
+  .video-wrapper iframe,
+  .video-wrapper video,
+  .video-wrapper img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  /* 特大サイズ（メイン作品） */
+  .video-main {
+    max-width: 100%;
+  }
+
+  /* 小さめサイズ（サブ作品や自己紹介） */
+  .video-sub {
+    max-width: 70%;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* 押しやすいボタンデザイン */
+  .button-group {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 20px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 24px;
+    background-color: var(--btn-bg);
+    color: var(--text-main);
+    text-decoration: none;
+    border-radius: 8px;
+    border: 1px solid var(--btn-border);
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  }
+
+  .btn:hover {
+    background-color: var(--btn-hover-bg);
+    color: var(--btn-hover-text);
+    border-color: var(--btn-hover-bg);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 15px rgba(100, 255, 218, 0.25);
+  }
+
+  /* 強調したいボタン（実行ファイルなど） */
+  .btn-primary {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .btn-primary:hover {
+    color: var(--btn-hover-text);
+  }
+
+  /* レスポンシブ対応（スマホ表示時） */
+  @media (max-width: 768px) {
+    nav ul {
+      gap: 15px;
+      font-size: 0.85rem;
+    }
+    .video-sub {
+      max-width: 100%;
+    }
+    section {
+      padding: 30px 20px;
+      margin-bottom: 70px;
+    }
+    .button-group {
+      flex-direction: column;
+    }
+    .btn {
+      width: 100%;
+      box-sizing: border-box;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- 固定ナビゲーションメニュー -->
+<nav>
+  <ul>
+    <li><a href="#introduction">自己紹介</a></li>
+    <li><a href="#main-project">メイン作品</a></li>
+    <li><a href="#sub-project-1">サブ作品1</a></li>
+    <li><a href="#sub-project-2">サブ作品2</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+  
+  <header>
+    <h1>PORTFOLIO</h1>
+    <p>ゲームプログラマー志望 | [あなたの名前]</p>
+  </header>
+
+  <!-- 挨拶と簡単な自己紹介 -->
+  <div class="greeting-box">
+    <h3 style="color: var(--accent); margin-top: 0; font-size: 1.3rem; margin-bottom: 15px;">「高品質な体験を創り出す、ゲームプレイプログラマーへ」</h3>
+    <p>効率的なアーキテクチャによるダイナミックなアクション実装を得意とし、<br>
+       プレイヤーの心を動かす高品質なゲーム体験（手触り・爽快感）を創り出すことを目標としています。</p>
+    <p>また、個人の実装力にとどまらず、チーム開発におけるコードの改善にも注力しています。<br>
+       技術と開発環境の両面を常にアップデートし、プロジェクトの品質向上に貢献できるエンジニアを目指しています。</p>
+  </div>
+
+  <!-- 【1. 自己紹介】 -->
+  <section id="introduction">
+    <h2 class="section-title">1. 自己紹介動画・資料</h2>
+    
+    <!-- 自己紹介動画（小さめ・中央寄せ） -->
+    <div class="video-wrapper video-sub">
+      <iframe src="https://www.youtube.com/embed/O4yonUQ8HSQ" title="自己紹介動画" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <div class="button-group">
+      <a href="./自己紹介動画/自己紹介.pdf" target="_blank" class="btn btn-primary">自己紹介シートを見る (PDF)</a>
+    </div>
+  </section>
+
+  <!-- 【2. メインゲーム作品】 -->
+  <section id="main-project">
+    <h2 class="section-title">2. メイン作品：SkyboundSlayer</h2>
+    
+    <!-- プレイ動画（特大サイズ） -->
+    <div class="video-wrapper video-main">
+      <iframe src="https://www.youtube.com/embed/drcom4Y--8A" title="SkyboundSlayer プレイ動画" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <div class="button-group">
+      <a href="./SkyboundSlayer/企画書/企画書.pdf" target="_blank" class="btn">企画書の解説 (PDF)</a>
+      <a href="https://github.com/SoTanaka0409/SkyboundSlayer.git" target="_blank" class="btn">GitHub リポジトリ</a>
+      <a href="./SkyboundSlayer/操作方法/操作方法.png" target="_blank" class="btn">操作方法 (画像)</a>
+      <!-- 実行ファイル -->
+      <a href="./SkyboundSlayer/実行ファイル/SkyboundSlayer.exe" class="btn btn-primary">実行ファイル ダウンロード</a>
+    </div>
+  </section>
+
+  <!-- 【3. サブ作品1】 -->
+  <section id="sub-project-1">
+    <h2 class="section-title">3. サブ作品 1：モーたまらん爽快牛キャッチャー</h2>
+    
+    <!-- プレイ動画（小さめ枠） -->
+    <div class="video-wrapper video-sub">
+      <iframe src="https://www.youtube.com/embed/uxer9cb2ACU" title="モーたまらん爽快牛キャッチャー プレイ動画" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <div class="button-group">
+      <a href="./モーたまらん爽快牛、キャッチャー/企画書/企画書.pdf" target="_blank" class="btn">企画書の解説 (PDF)</a>
+      <a href="https://github.com/SoTanaka0409/cow.git" target="_blank" class="btn">GitHub リポジトリ</a>
+      <a href="./モーたまらん爽快牛、キャッチャー/操作方法/操作説明.pdf" target="_blank" class="btn">操作方法 (PDF)</a>
+      <a href="./モーたまらん爽快牛、キャッチャー/実行ファイル/CowGame.exe" class="btn btn-primary">実行ファイル ダウンロード</a>
+    </div>
+  </section>
+
+  <!-- 【4. サブ作品2】 -->
+  <section id="sub-project-2">
+    <h2 class="section-title">4. サブ作品 2：Spell-Burst</h2>
+    
+    <!-- プレイ動画（小さめ枠） -->
+    <div class="video-wrapper video-sub">
+      <iframe src="https://www.youtube.com/embed/emBfugtkKuM" title="Spell-Burst プレイ動画" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+
+    <div class="button-group">
+      <a href="./spell_Burst/企画書/企画書.pdf" target="_blank" class="btn">企画書の解説 (PDF)</a>
+      <a href="https://github.com/SoTanaka0409/Spell-Burst.git" target="_blank" class="btn">GitHub リポジトリ</a>
+      <a href="./spell_Burst/操作方法/操作方法.pdf" target="_blank" class="btn">操作方法 (PDF)</a>
+      <a href="./spell_Burst/実行ファイル/SpellStrike.exe" class="btn btn-primary">実行ファイル ダウンロード</a>
+    </div>
+  </section>
+
+</div>
+
+</body>
+</html>
