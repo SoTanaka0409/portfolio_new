@@ -1,4 +1,4 @@
-# Skybound Slayer
+﻿# Skybound Slayer
 
 > 「爽快アクション × 自由なキャラビルド」  
 > ゲームエンジンを使わず、C++とDxLibを用いて基盤から制作した3DアクションRPGです。
